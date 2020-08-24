@@ -48,11 +48,16 @@ def listen_for_messages(cd):
                 cd[1].close()
                 clients.remove(cd)
 
-                print(f"{cd[0]} has left the chat...")
-                return
+                msg = f"{cd[0]} has left the chat..."
 
-            msg = f"{cd[0]}: {msg}"
+            else:
+                msg = f"{cd[0]}: {msg}"
+
             print(msg)
+
+            msg = msg.encode("utf-8")
+            for client in clients:
+                client[1].send(msg)
 
 
 def main():

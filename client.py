@@ -31,7 +31,7 @@ def contact_server():
         sys.exit()
     else:
         print(welcome_msg)
-        print("Use [EXIT] to leave this room.")
+        print("Use [EXIT] to leave this room.\n")
 
 
 def listen_for_messages():
@@ -46,7 +46,7 @@ def listen_for_messages():
 
 def send_messages():
     while True:
-        msg = input(">>")
+        msg = input()
         msg = msg.encode("utf-8")
         s.send(msg)
 
