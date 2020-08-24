@@ -17,6 +17,9 @@ except ConnectionRefusedError:
     sys.exit()
 
 
+stop_threads = False
+
+
 def contact_server():
     encoded_usern = usern.encode("utf-8")
     s.send(encoded_usern)
@@ -28,6 +31,7 @@ def contact_server():
         sys.exit()
     else:
         print(welcome_msg)
+        print("Use [EXIT] to leave this room.")
 
 
 def listen_for_messages():
@@ -36,13 +40,20 @@ def listen_for_messages():
         msg = msg.decode("utf-8")
         print(msg)
 
+        if stop_threads:
+            break
+
 
 def send_messages():
     while True:
         msg = input(">>")
-        msg = f"{usern}: {msg}"
         msg = msg.encode("utf-8")
         s.send(msg)
+
+        if msg.decode("utf-8") == "[EXIT]":
+            global stop_threads
+            stop_threads = True
+            break
 
 
 def main():
@@ -52,6 +63,12 @@ def main():
 
     listen_for_messages_thread.start()
     send_messages_thread.start()
+
+    while True:
+        if stop_threads:
+            listen_for_messages_thread.join()
+            send_messages_thread.join()
+            break
 
 
 if __name__ == "__main__":

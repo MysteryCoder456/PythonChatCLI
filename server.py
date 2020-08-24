@@ -10,7 +10,7 @@ s.bind((IP, PORT))
 s.listen(10)
 print("Listening for connections...")
 
-clients = {}
+clients = []
 
 def new_client():
     while True:
@@ -19,25 +19,39 @@ def new_client():
         client_usern = clientsocket.recv(MSG_SIZE)
         client_usern = client_usern.decode("utf-8")
 
-        if client_usern in clients.keys():
-            clientsocket.send(bytes("ERROR: Username already taken!", "utf-8"))
-        else:
-            clients[client_usern] = clientsocket
+        for client in clients:
+            if client[0] == client_usern:
+                clientsocket.send(bytes("ERROR: Username already taken!", "utf-8"))
+                continue
 
-            print(f"Connection from {address} has been established! Username = {client_usern}")
-            clientsocket.send(bytes("You have joined MysteryCoder456 Chatroom.", "utf-8"))
-            listen_for_messages_thread = threading.Thread(
-                target=listen_for_messages,
-                args=(clients[client_usern],)
-            )
-            listen_for_messages_thread.start()
+        client_data = (client_usern, clientsocket)
+        clients.append(client_data)
+
+        print(f"Connection from {address} has been established! Username = {client_usern}")
+        clientsocket.send(bytes("You have joined MysteryCoder456 Chatroom.", "utf-8"))
+
+        listen_for_messages_thread = threading.Thread(
+            target=listen_for_messages,
+            args=(client_data,)
+        )
+
+        listen_for_messages_thread.start()
 
 
-def listen_for_messages(cs: socket.socket):
+def listen_for_messages(cd):
     while True:
         if len(clients) > 0:
-            msg = cs.recv(MSG_SIZE)
+            msg = cd[1].recv(MSG_SIZE)
             msg = msg.decode("utf-8")
+
+            if msg == "[EXIT]":
+                cd[1].close()
+                clients.remove(cd)
+
+                print(f"{cd[0]} has left the chat...")
+                return
+
+            msg = f"{cd[0]}: {msg}"
             print(msg)
 
 
