@@ -1,7 +1,7 @@
 import socket
 import threading
 
-IP = '34.230.88.196'
+IP = '54.90.118.51'
 PORT = 8000
 MSG_SIZE = 2048
 
