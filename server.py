@@ -12,7 +12,7 @@ else:
 IP = '0.0.0.0'
 
 if server_name == "MysteryCoder456":
-    PORT = os.environ["PORT"]
+    PORT = int(os.environ["PORT"])
 else:
     PORT = 8000
 
