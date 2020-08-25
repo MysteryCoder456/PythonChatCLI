@@ -13,13 +13,7 @@ MSG_SIZE = 2048
 usern = input("Enter your username: ")
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-try:
-    s.connect((IP, PORT))
-except ConnectionRefusedError:
-    print("This server has not started yet...")
-    sys.exit()
-
+s.connect((IP, PORT))
 
 stop_threads = False
 
