@@ -7,7 +7,7 @@ if len(sys.argv) > 1:
 else:
     server_name = input("What should your chatroom be called? ")
 
-IP = '192.168.1.109'
+IP = '0.0.0.0'
 PORT = 8000
 MSG_SIZE = 2048
 
