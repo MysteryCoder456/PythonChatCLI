@@ -1,16 +1,20 @@
+import sys
 import socket
 import threading
 
-server_name = input("What should your chatroom be called? ")
+if len(sys.argv) > 1:
+    server_name = sys.argv[1]
+else:
+    server_name = input("What should your chatroom be called? ")
 
-IP = '0.0.0.0'
+IP = '192.168.1.109'
 PORT = 8000
 MSG_SIZE = 2048
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((IP, PORT))
 s.listen(10)
-print("Listening for connections...")
+print("Listening for connections at", socket.gethostbyname(socket.gethostname()))
 
 clients = []
 
