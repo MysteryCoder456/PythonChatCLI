@@ -2,7 +2,11 @@ import sys
 import socket
 import threading
 
-IP = '127.0.0.1'
+IP = input("Enter the server's IP Address (leave empty for localhost): ")
+
+if len(IP.strip()) < 1:
+    IP = '127.0.0.1'
+
 PORT = 8000
 MSG_SIZE = 2048
 

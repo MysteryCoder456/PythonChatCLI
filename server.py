@@ -1,6 +1,8 @@
 import socket
 import threading
 
+server_name = input("What should your chatroom be called? ")
+
 IP = '0.0.0.0'
 PORT = 8000
 MSG_SIZE = 2048
@@ -28,7 +30,7 @@ def new_client():
         clients.append(client_data)
 
         print(f"Connection from {address} has been established! Username = {client_usern}")
-        clientsocket.send(bytes("You have joined MysteryCoder456 Chatroom.", "utf-8"))
+        clientsocket.send(bytes(f"You have joined {server_name} Chatroom.", "utf-8"))
 
         listen_for_messages_thread = threading.Thread(
             target=listen_for_messages,
