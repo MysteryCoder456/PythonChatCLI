@@ -26,11 +26,11 @@ def new_client():
                 clientsocket.send(bytes("ERROR: Username already taken!", "utf-8"))
                 continue
 
+        for client in clients:
+            client[1].send(bytes(f"{client_usern} has entered the chat...", "utf-8"))
+
         client_data = (client_usern, clientsocket)
         clients.append(client_data)
-
-        print(f"Connection from {address} has been established! Username = {client_usern}")
-        clientsocket.send(bytes(f"You have joined {server_name} Chatroom.", "utf-8"))
 
         listen_for_messages_thread = threading.Thread(
             target=listen_for_messages,
@@ -38,6 +38,9 @@ def new_client():
         )
 
         listen_for_messages_thread.start()
+
+        print(f"Connection from {address} has been established! Username = {client_usern}")
+        clientsocket.send(bytes(f"You have joined {server_name} chatroom.", "utf-8"))
 
 
 def listen_for_messages(cd):

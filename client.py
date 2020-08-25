@@ -34,7 +34,7 @@ def contact_server():
         print(welcome_msg)
         sys.exit()
     else:
-        print(welcome_msg)
+        print("\n" + welcome_msg)
         print("Use [EXIT] to leave this room.\n")
 
 
