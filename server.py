@@ -9,12 +9,12 @@ else:
     server_name = input("What should your chatroom be called? ")
 
 IP = '0.0.0.0'
-PORT = 8000
+PORT = 80
 MSG_SIZE = 2048
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((IP, PORT))
-s.listen(10)
+s.listen(5)
 print("Listening for connections...")
 print(socket.gethostbyname(socket.gethostname()), urllib.request.urlopen('https://ident.me').read().decode('utf8'))
 
