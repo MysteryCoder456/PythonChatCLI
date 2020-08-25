@@ -2,6 +2,7 @@ import sys
 import socket
 import threading
 import urllib.request
+import os
 
 if len(sys.argv) > 1:
     server_name = sys.argv[1]
@@ -9,14 +10,19 @@ else:
     server_name = input("What should your chatroom be called? ")
 
 IP = '0.0.0.0'
-PORT = 80
+
+if server_name == "MysteryCoder456":
+    PORT = os.environ["PORT"]
+else:
+    PORT = 8000
+
 MSG_SIZE = 2048
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((IP, PORT))
 s.listen(5)
 print("Listening for connections...")
-print(socket.gethostbyname(socket.gethostname()), urllib.request.urlopen('https://ident.me').read().decode('utf8'))
+print(socket.gethostbyname(socket.gethostname()), urllib.request.urlopen('https://ident.me').read().decode('utf8'), PORT)
 
 clients = []
 

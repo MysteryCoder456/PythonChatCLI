@@ -3,11 +3,14 @@ import socket
 import threading
 
 IP = input("Enter the server's IP Address (leave empty for localhost): ")
+PORT = input("Enter the server's PORT (leave empty for 8000): ")
 
 if len(IP.strip()) < 1:
     IP = '127.0.0.1'
 
-PORT = 80
+if len(PORT.strip()) < 1:
+    PORT = 8000
+
 MSG_SIZE = 2048
 
 usern = input("Enter your username: ")
