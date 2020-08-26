@@ -15,11 +15,15 @@ else:
 
 MSG_SIZE = 2048
 
-usern = input("Enter your username: ")
-
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((IP, PORT))
 
+try:
+    s.connect((IP, PORT))
+except ConnectionRefusedError:
+    print("This server has not been started...")
+    sys.exit()
+
+usern = input("Enter your username: ")
 stop_threads = False
 
 
