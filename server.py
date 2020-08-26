@@ -21,8 +21,8 @@ MSG_SIZE = 2048
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((IP, PORT))
 s.listen(5)
-print("Listening for connections...")
-print(socket.gethostbyname(socket.gethostname()), urllib.request.urlopen('https://ident.me').read().decode('utf8'), PORT)
+print("Listening for connections at:")
+print("Local IP:", socket.gethostbyname(socket.gethostname()), ", Public IP:", urllib.request.urlopen('https://ident.me').read().decode('utf8'), ", Port:", PORT)
 
 clients = []
 

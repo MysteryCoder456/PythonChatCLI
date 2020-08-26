@@ -10,6 +10,8 @@ if len(IP.strip()) < 1:
 
 if len(PORT.strip()) < 1:
     PORT = 8000
+else:
+    PORT = int(PORT)
 
 MSG_SIZE = 2048
 
