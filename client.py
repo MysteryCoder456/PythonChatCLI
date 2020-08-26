@@ -2,11 +2,11 @@ import sys
 import socket
 import threading
 
-IP = input("Enter the server's IP Address (leave empty for localhost): ")
+ADDR = input("Enter the server's IP Address/DNS (leave empty for localhost): ")
 PORT = input("Enter the server's PORT (leave empty for 8000): ")
 
-if len(IP.strip()) < 1:
-    IP = '127.0.0.1'
+if len(ADDR.strip()) < 1:
+    ADDR = '127.0.0.1'
 
 if len(PORT.strip()) < 1:
     PORT = 8000
@@ -18,7 +18,7 @@ MSG_SIZE = 2048
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
-    s.connect((IP, PORT))
+    s.connect((ADDR, PORT))
 except ConnectionRefusedError:
     print("This server has not been started...")
     sys.exit()
