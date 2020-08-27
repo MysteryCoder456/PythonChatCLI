@@ -28,10 +28,15 @@ def new_client():
         client_usern = clientsocket.recv(MSG_SIZE)
         client_usern = client_usern.decode("utf-8")
 
+        usern_taken = False
+
         for client in clients:
             if client[0] == client_usern:
                 clientsocket.send(bytes("ERROR: Username already taken!", "utf-8"))
-                continue
+                usern_taken = True
+
+        if usern_taken:
+            continue
 
         for client in clients:
             client[1].send(bytes(f"{client_usern} has entered the chat...", "utf-8"))
