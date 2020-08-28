@@ -56,7 +56,8 @@ def new_client():
 
 
 def listen_for_messages(cd):
-    while True:
+    has_left = False
+    while not has_left:
         if len(clients) > 0:
             msg = cd[1].recv(MSG_SIZE)
             msg = msg.decode("utf-8")
@@ -64,7 +65,7 @@ def listen_for_messages(cd):
             if msg == "[EXIT]":
                 cd[1].close()
                 clients.remove(cd)
-
+                has_left = True
                 msg = f"{cd[0]} has left the chat..."
 
             else:
