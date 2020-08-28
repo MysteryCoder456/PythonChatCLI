@@ -4,9 +4,10 @@ import threading
 import urllib.request
 
 if len(sys.argv) > 1:
-    server_name = sys.argv[1]
+    WLCM_MSG = sys.argv[1]
 else:
-    server_name = input("What should your chatroom be called? ")
+    WLCM_MSG = input("What should your Welcome Message be? ")
+WLCM_MSG = WLCM_MSG.encode("utf-8")
 
 ADDR = '0.0.0.0'
 PORT = 8000
@@ -52,7 +53,7 @@ def new_client():
         listen_for_messages_thread.start()
 
         print(f"Connection from {address} has been established! Username = {client_usern}")
-        clientsocket.send(bytes(f"You have joined {server_name} chatroom.", "utf-8"))
+        clientsocket.send(WLCM_MSG)
 
 
 def listen_for_messages(cd):
