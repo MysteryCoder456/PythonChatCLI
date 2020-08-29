@@ -80,7 +80,9 @@ def main():
         except KeyboardInterrupt:
             stop_all_threads()
             s.send(bytes("[EXIT]", "utf-8"))
-            sys.exit()
+            listen_for_messages_thread.join()
+            send_messages_thread.join()
+            break
 
 
 if __name__ == "__main__":
