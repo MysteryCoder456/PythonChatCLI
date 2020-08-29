@@ -1,6 +1,8 @@
 # PythonChatCLI
 A Command-Line Interface Chat Application made using Python3 and Sockets Module
 
+[![Run on Repl.it](https://repl.it/badge/github/MysteryCoder456/PythonChatCLI)](https://repl.it/github/MysteryCoder456/PythonChatCLI)
+
 ## Running this App
 **Running on Local Networks:** First, run the `server.py` script on any computer on your Locla Network. Then, on either the same computer on a different computer (on the same network), run the `client.py` script and enter the IP address and Port on which the `server.py` script is running. The IP and Port are both display when you run the `server.py` script.
 
