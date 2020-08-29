@@ -53,7 +53,10 @@ def listen_for_messages():
 
 def send_messages():
     while True:
-        msg = input()
+	try:
+            msg = input()
+	except KeyboardInterrupt:
+	    msg = "[EXIT]"
         msg = msg.encode("utf-8")
         s.send(msg)
 
