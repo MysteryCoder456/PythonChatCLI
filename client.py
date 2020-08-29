@@ -42,28 +42,25 @@ def contact_server():
 
 
 def listen_for_messages():
-    while True:
+    while not stop_threads:
         msg = s.recv(MSG_SIZE)
         msg = msg.decode("utf-8")
         print(msg)
 
-        if stop_threads:
-            break
-
 
 def send_messages():
-    while True:
-	try:
-            msg = input()
-	except KeyboardInterrupt:
-	    msg = "[EXIT]"
+    while not stop_threads:
+        msg = input()
         msg = msg.encode("utf-8")
         s.send(msg)
 
         if msg.decode("utf-8") == "[EXIT]":
-            global stop_threads
-            stop_threads = True
-            break
+            stop_all_threads()
+
+
+def stop_all_threads():
+    global stop_threads
+    stop_threads = True
 
 
 def main():
@@ -75,10 +72,15 @@ def main():
     send_messages_thread.start()
 
     while True:
-        if stop_threads:
-            listen_for_messages_thread.join()
-            send_messages_thread.join()
-            break
+        try:
+            if stop_threads:
+                listen_for_messages_thread.join()
+                send_messages_thread.join()
+                break
+        except KeyboardInterrupt:
+            stop_all_threads()
+            s.send(bytes("[EXIT]", "utf-8"))
+            sys.exit()
 
 
 if __name__ == "__main__":
